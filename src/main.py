@@ -1,6 +1,8 @@
-def main():
-    print("Hello from app!")
+from PytorchWildlife.models.detection import MegaDetectorV6Apache
 
-
-if __name__ == "__main__":
-    main()
+# Apache RT‑DETR
+detector = MegaDetectorV6Apache(
+    device="cpu",
+    pretrained=True,
+    version="MDV6-apa-rtdetr-e"
+)

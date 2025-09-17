@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/python:3.13.6-bookworm
+FROM python:3.11.13-bookworm
 
 ENV UV_TORCH_BACKEND=auto
 ENV TRANSFORMERS_VERBOSITY=info
@@ -7,11 +7,14 @@ ARG UID
 WORKDIR /app
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y \
     sudo \
     curl \
     gnupg \
-    jq
+    jq \
+    poppler-utils \
+    libgl1 \
+    libglib2.0-0
 
 RUN groupadd -g ${UID} ${USER} && \
     useradd -m -u ${UID} -g ${UID} -s /bin/bash ${USER} && \
